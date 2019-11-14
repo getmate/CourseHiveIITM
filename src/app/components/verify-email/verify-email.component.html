@@ -1,0 +1,22 @@
+<div style="background: #ECEEEF; height: 100% ;">
+    <div class="container" style="padding-top:40px;min-height:720px;">
+      <div>
+        <div >
+         Hey {{name}} your email: {{email}} is not verified! <br>
+         (can't allow you to use this for security reasons! :-P) 
+        </div>
+      </div>
+      <h2>
+            Hey {{name}} your email: {{email}} is not verified! <br>
+            (can't allow you to use this for security reasons! :-P) <br>  
+        We have already sent a verification link to {{email}}. <br>
+        <br>
+        <br>
+        <a (click)="SendVerificationLink()" class="pointer">Click here to send verification link again!</a>
+    </h2>
+    <div *ngIf="linkSentAgain" class="alert alert-success">
+            link is sent to {{email}}
+    </div>
+        
+    </div>
+</div>

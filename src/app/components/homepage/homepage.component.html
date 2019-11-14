@@ -1,0 +1,20 @@
+<div class="wrap">
+    <div class="search">
+        <input type="text" (keydown)="KeyDown($event)" [(ngModel)]="CourseId" name="CourseId"  class="searchTerm" placeholder="Course Id">
+        <button type="submit"  class="searchButton" (click)="SearchClicked()">
+            Search
+        </button>
+    </div>
+    <div>
+            <a href="/addcourse">Didn't find your course! Add it </a>
+    </div>
+</div>
+
+<div style="min-height: 80vh">
+
+
+<!-- </div>
+ <button (click)="demoFunction()"> clikc</button>
+<div>
+    {{done}}  of {{ total}}
+</div>  -->

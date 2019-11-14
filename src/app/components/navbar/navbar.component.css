@@ -1,0 +1,49 @@
+.ml-5 {
+    margin-left: 20px !important;
+  }
+.bg-basil {
+    background-color: brown
+}
+body {
+  margin-top: 105px; }
+#logout:hover{
+  color: black;
+}
+.navbar {
+  box-shadow: 2px 2px 5px #3292a6;
+  opacity: 0.9;
+  background: #fff; }
+  .navbar .nav-item {
+    font-size: 1.2rem;
+    padding-right: 20px; }
+
+
+
+.info-header {
+  width: 50%;
+  margin: auto;
+  border-bottom: 1px #ddd solid; }
+
+#authors img {
+  margin-top: -50px; }
+
+#authors .fa {
+  font-size: 25px; }
+
+#authors .card:hover {
+  background: #3292a6;
+  color: #fff; }
+  #authors .card:hover .fa {
+    color: #fff; }
+
+#main-footer {
+  height: 300px; }
+  #main-footer a {
+    color: #fff; }
+
+@media (max-width: 576px) {
+  nav .container {
+    width: 100%; } }
+
+
+

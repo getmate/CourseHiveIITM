@@ -1,0 +1,31 @@
+<div class="container">
+        <div class="text-center mt-5">
+                <form class="example-form">
+                    <mat-form-field class="example-full-width my-3">
+                      <div >
+                        <input matInput  placeholder="Course Name" 
+                        [(ngModel)]="course.name" name="course.name"
+                        aria-label="Course Name" >
+                      </div>
+                    </mat-form-field>
+          
+                    <mat-form-field class="example-full-width my-3">
+                        <div>
+                            <input matInput  placeholder="Course Number" 
+                            [(ngModel)]="course.id" name="course.id"
+                            aria-label="Course Number" >
+                        </div>
+                    </mat-form-field>
+          
+                    <mat-form-field class="example-full-width my-3">
+                        <div>
+                            <input matInput  placeholder="Instructer Name" 
+                            [(ngModel)]="course.instructerName" name="course.instructerName"
+                            aria-label="Instructer Name" >
+                          </div>>
+                    </mat-form-field>
+          
+                  </form>
+                  <button class="btn btn-secondary" (click)="Submit()">Submit</button>
+            </div>
+</div>

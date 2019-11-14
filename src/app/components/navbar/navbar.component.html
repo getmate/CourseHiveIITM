@@ -1,0 +1,46 @@
+
+<nav  class="navbar navbar-expand-md navbar-light">
+    <div class="container">
+      <button class="navbar-toggler navbar-toggler-right">
+        <span class="navbar-toggler-icon" data-toggle="collapse"
+         data-target="#navbarNav"></span></button>
+      <a  class="navbar-brand" style=" cursor: pointer;">
+       <h3  routerLink="/home" class="d-inline align-middle" style="color: #329296" >CourseHive-IITM
+        </h3>
+      </a>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+   
+          <li class="nav-item">
+            <a   routerLink="/home" class="nav-link">Home</a>
+          </li>
+          <li  *ngIf="!isLoggedIn" class="nav-item">
+            <a  routerLink="" class="nav-link">Login/SignUp</a>
+          </li>
+         
+          
+          <li   *ngIf="isLoggedIn" class="nav-item">
+            <a   routerLink="/myprofile" class="nav-link">{{name}}</a>
+          </li>
+        
+          
+            <li  *ngIf="isLoggedIn" class="nav-item" >
+              <a  id="logout" routerLink="" (click)="OnLogoutCLick()" class="nav-link" style="color: #DFDFDF">Logout</a>
+            </li>
+            <!-- <li  (click)="CityClicked()" class="nav-item dropdown" style="margin-right: 0;cursor: pointer" >
+              <a   class="nav-link dropdown-toggle" 
+              id="dropdownC" data-toggle="dropdown"
+              >{{getCity()}}</a>
+  
+              <div  style="cursor: pointer" class="dropdown-menu" aria-labelledby="dropdownC">  
+                <a class="dropdown-item"  >{{city}}</a>
+                <a class="dropdown-item" (click)="Browse()" >Browse</a>
+                
+               
+              </div>
+            </li> -->
+        </ul>
+      </div>
+    </div>
+  </nav>
+  

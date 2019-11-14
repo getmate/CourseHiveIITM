@@ -1,0 +1,361 @@
+<div class="container">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">{{course.id}} : {{course.name}}</h1>
+                
+            </div>
+    <mat-tab-group>
+        <mat-tab label="Reviews"> 
+                <div class="row bd-callout-warning no-gutters">
+                        <div class="col-md-10">
+                                <p>Review this course !</p>
+                            <p class="text">
+                                
+                                <textarea  class="feedback-input"
+                                 type="text" [(ngModel)]="review" name="review" 
+                                    id="comment">
+    
+                                </textarea>
+                            </p>
+                        </div>
+                        <div class="col-md-2 align-self-end text-center" style="margin-bottom: 10px;">
+                            <button class="btn btn-success " (click)="ReviewThisCourse()"> Submit</button>
+                        </div>
+                    </div>
+            <div *ngFor="let review of course.reviews">
+                <div class="bd-callout-warning ">
+                        <div >
+                            <p class="card-text">{{review.review}}</p>
+                        </div>
+                        <div class="row justify-content-between mt-2">
+                            <div class="col text-left">
+                                 <i class="fa fa-arrow-up pointer"
+                                 (click)="UpVoteClicked(review)"
+                                  [style.color]="IUpvoted(review.upVotedBy) ? '#FF6347' : '#212529'">{{review.upVotedBy.length}}</i> 
+                                 <span class="ml-3">
+                                        <i class="fa fa-arrow-down pointer"
+                                        (click)="DownVoteClicked(review)"
+                                        [style.color]="IDownVoted(review.downVotedBy) ? '#FF6347' : '#212529'">{{review.downVotedBy.length}}</i> 
+                                 </span>
+                            </div>
+                            <div (click)="openProfile(review.fromFid)" class="col text-right pointer">
+                                     {{review.fromName}}(<span class="text-muted" style="font-size: small">{{review.fromRollNo}}</span>) 
+                                                : {{getDate(review.at)}}
+                                 
+                            </div>
+                            
+                           
+                            
+                        </div>
+                </div>
+            </div>
+
+        </mat-tab>
+        <mat-tab label="FAQ's">
+                <div class="row bd-callout-warning no-gutters">
+                    <div class="col-md-10">
+                            <p>Ask a question!</p>
+                        <p class="text">
+                            
+                            <textarea  class="feedback-input"
+                             type="text" [(ngModel)]="Que" name="Que" 
+                                id="comment">
+
+                            </textarea>
+                        </p>
+                    </div>
+                    <div class="col-md-2 align-self-end text-center" style="margin-bottom: 10px;">
+                        <button class="btn btn-success " (click)="AskAQuestionClicked()"> Submit</button>
+                    </div>
+                </div>
+                
+            <div class="bd-callout-warning"   *ngFor="let question of course.fAQs">
+                    <div >
+                            <p class="card-text">{{question.question}}</p>
+                        </div>
+                        <div class="row justify-content-between mt-2">
+                            <div (click)="ReadAnswer(question)" class="col text-left text-primary pointer" 
+                            style="font-weight:500 "  >
+                                 {{getAnswerText(question)}}
+                            </div>
+                            <div (click)="AnswerCLicked(answerModal,question)" class="col text-left text-primary pointer" 
+                            style="font-weight:500 " >
+                                 Answer
+                            </div>
+                            <div (click)="openProfile(question.askedByFid)" class="col text-right pointer">
+                                     {{question.askedByName}}(<span class="text-muted" style="font-size: small">{{question.askedByRollNo}}</span>) 
+                                                    : {{getDate(question.at)}}
+                                 
+                            </div>
+                            
+                           
+                            
+                        </div>
+                        <div  *ngFor="let answer of question.answers"  class="border-top ml-5 mt-5">
+                                <div>
+                                        <p class="card-text">{{answer.answer}}</p>
+                                </div>
+                                <div class="row justify-content-between mt-2">
+                                        <div (click)="openProfile(answer.fromFid)" class="col text-right pointer">
+                                                 {{answer.fromName}}(<span class="text-muted" style="font-size: small">{{answer.fromRollNo}}</span>)
+                                                                : {{getDate(answer.at)}}
+                                             
+                                        </div>
+                                        <div *ngIf="answer.fromFid === myFId" class="col-1 text-right">
+                                            <i [matMenuTriggerFor]="menu"  class="fa  fa-ellipsis-v pointer" ></i>
+                                      
+                                            <mat-menu #menu="matMenu">
+                                              <button (click)="DeleteContent(answer, question)" mat-menu-item>
+                                                
+                                                <span>Delete</span>
+                                              </button>
+                                              
+                                            </mat-menu>
+                                            
+                                          </div>
+                                        
+                                       
+                                        
+                                </div>
+                        </div>
+                        <div *ngIf="question.answers >  0">
+                            No Answers!
+                        </div>
+                        <!-- <ng-template #noAnswerAvailable>
+                            No answers !
+                         </ng-template> -->
+                        
+            </div>
+        </mat-tab>
+        <mat-tab label="CourseContent"> 
+                <div  class="bd-callout-warning ">
+                    <div class="row justify-content-between">
+                        <div class="col-3">
+                           
+                            <button (click)="OpenUploadContentModal(uploadModal)"
+                            class="btn btn-secondary"><i class="fa fa-upload">
+                               Upload
+                           </i></button>
+                        </div>
+                        <div class="col-9">
+                                Hey {{auth.displayName}} wanna upload something!
+                        </div>
+                    </div>
+                </div>
+                <div *ngFor="let content of course.contents">
+                        <div class="bd-callout-warning ">
+                                <div class="row justify-content-between mt-2">
+                                    <div class="col">
+                                        <p class="card-text">{{content.documentType}}</p>
+                                    </div>
+                                    <div class="col">
+                                        <button (click)="DownloadClicked(content.documentAddress)"
+                                         class="btn btn-light"><i class="fa fa-download">
+                                            Download
+                                        </i></button>
+                                    </div>
+                                  
+                                </div>
+                                <div class="row justify-content-between mt-2">
+                                    <div class="col text-left">
+                                         <i class="fa fa-arrow-up pointer"
+                                         (click)="UpVoteClickedContent(content)"
+                                          [style.color]="IUpvotedContent(content.upVotedBy) ? '#FF6347' : '#212529'">{{content.upVotedBy.length}}</i> 
+                                         <span class="ml-3">
+                                                <i class="fa fa-arrow-down pointer"
+                                                (click)="DownVoteClickedContent(content)"
+                                                [style.color]="IDownVotedContent(content.downVotedBy) ? '#FF6347' : '#212529'">{{content.downVotedBy.length}}</i> 
+                                         </span>
+                                    </div>
+                                    <div (click)="openProfile(content.uploadedByFId)" class="col text-right pointer">
+                                             {{content.uploadedByName}}(<span class="text-muted" style="font-size: small">{{content.uploadedByRollNo}}</span>) 
+                                                            : {{getDate(content.uploadedAt)}}
+                                         
+                                    </div>
+                                    
+                                   
+                                    
+                                </div>
+                        </div>
+                    </div>
+        </mat-tab>
+        <mat-tab label="More Information"> 
+                <div  class="bd-callout-warning ">
+                    <div class="row mt-2">
+                        <div class="col-4">
+                                Slot
+                        </div>
+                        <div class="col-8">
+                            : {{course.slot}}
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-4">
+                                Instructer's name
+                        </div>
+                        <div class="col-8">
+                            : {{course.instructerName}}
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                            <div class="col-4">
+                                    Additional Slot
+                            </div>
+                            <div class="col-8">
+                                : {{course.additionalSlot}}
+                            </div>
+                    </div>
+                    <div class="row mt-2">
+                            <div class="col-4">
+                                    Credits
+                            </div>
+                            <div class="col-8">
+                                : {{course.credits}}
+                            </div>
+                    </div>
+                    <div class="row mt-2">
+                            <div class="col-4">
+                                    Room
+                            </div>
+                            <div class="col-8">
+                                : {{course.room}}
+                            </div>
+                    </div>
+                    <div class="row mt-2">
+                            <div class="col-4">
+                                    Prerequisites
+                            </div>
+                            <div class="col-8">
+                                : {{course.preq}}
+                            </div>
+                    </div>
+                    <div class="row mt-2">
+                            <div class="col-4">
+                                    Maximum strength
+                            </div>
+                            <div class="col-8">
+                                : {{course.maxStrength}}
+                            </div>
+                    </div>
+                    
+                    <div class="row mt-2">
+                            <div class="col-4">
+                                   Offered for BTech / DD 
+                            </div>
+                            <div class="col-8">
+                                : {{course.offeredForBTechDD}}
+                            </div>
+                    </div>
+                    
+                </div>
+                
+        </mat-tab>
+    </mat-tab-group>
+                
+</div>
+
+<ng-template #answerModal let-modal>
+		
+        <div class="modal-header">
+         <button class="close" data-dismiss="modal" (click)="modal.dismiss('Cross click')">&times;</button>
+        </div>
+        <div class="modal-body">
+              <div class="text-center">
+                <h5>{{OpenedQuestion.question}}</h5>
+              </div>
+              <div class="row bd-callout-warning no-gutters">
+                    <div class="col-md-10">
+                        <p class="text">
+                            
+                            <textarea  class="feedback-input"
+                             type="text" [(ngModel)]="AnswerToOpenQuestion.answer" name="AnswerToOpenQuestion.answer" 
+                                id="comment">
+
+                            </textarea>
+                        </p>
+                    </div>
+                    <div class="col-md-2 align-self-end text-center">
+                        <button class="btn btn-success " (click)="AnswerSubmit()"> Submit</button>
+                    </div>
+                </div>
+            
+        </div>
+
+      
+        
+      </ng-template>
+
+      <ng-template #uploadModal let-modal>
+		
+            <div class="modal-header">
+             <button class="close" data-dismiss="modal" (click)="modal.dismiss('Cross click')">&times;</button>
+            </div>
+            <div class="modal-body">
+               <div class="row mt-5 no-gutters justify-content-between">
+                    <div class="col">
+                        Course :
+                    </div>
+                    <div class="col">
+                        {{uploadContent.courseId}} : {{ uploadContent.courseName}}
+                    </div>
+                  
+               </div>
+               <div class="row mt-5 no-gutters justify-content-between">
+                    <div class="col">
+                        Document Type:
+                    </div>
+                    <div class="col">
+                            <select id="documentType" name="uploadContent.documentType"
+                            [(ngModel)]="uploadContent.documentType">
+                               <option [ngValue]="undefined" disabled>Select Tag</option>
+                               
+                               <option *ngFor="let tag of DocumentTypeOptions" [value]="tag" style="font-size:14px; ">{{tag}}</option>
+                               
+                        
+                            </select>
+                            <div *ngIf="uploadContent.documentType === 'Other'">
+                                    <mat-form-field >
+                                            <input matInput 
+                                            [(ngModel)]="IfOtherDocType"
+                                            placeholder="documentType. . . "
+                                            type="text" id="OtherdocumentType"
+                                            >
+                                        </mat-form-field>
+                            </div>
+                            
+                    </div>
+                </div>
+
+                <div class="row mt-5 no-gutters justify-content-between">
+                    <div class="col">
+                        Upload File
+                    </div>
+                    <div class="col">
+                            <input type="file" 
+                            (change)="startUpload($event.target.files)">
+                    </div>
+                </div>
+                <div *ngIf="percentage | async as pct">
+
+                    <progress class="progress is-info" 
+                           [value]="pct" 
+                           max="100">        
+                    </progress>
+                    desc
+                    {{ pct | number }}%
+                    
+              </div>
+                <div class="row mt-5 no-gutters justify-content-between">
+                        <div class="col">
+                            Upload By : 
+                        </div>
+                        <div class="col">
+                                {{uploadContent.uploadedByName}}, {{uploadContent.uploadedByRollNo}}
+                        </div>
+                      
+                </div>
+                <button *ngIf="isImageUploaded" class="btn btn-primary" (click)="UploadContentClicked()"> Submit</button>
+            </div>
+    
+          
+            
+          </ng-template>

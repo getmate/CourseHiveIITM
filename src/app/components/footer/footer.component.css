@@ -1,0 +1,30 @@
+.footer-nav-menu-item {
+    display: inline-block;
+    margin-right: 40px;
+    margin-right: 2.5rem;
+}
+ul li {
+    font-size: 20px;
+    font-size: 1.25rem;
+    padding: 6.4px 0;
+    padding: .4rem 0;
+}
+a{cursor: pointer;}
+
+.footer-nav-menu {
+    list-style: none;
+    margin-bottom: 0;
+    text-align: center;
+}
+h5{
+    color: #DFDFDF;
+}
+li.a {
+    color: #596268;
+}img {
+    height: 100px;
+    width: 100px;
+    object-fit: cover;
+    object-position: center; /* Center the image within the element */
+    
+ }

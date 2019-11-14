@@ -1,0 +1,149 @@
+<div class="container">
+    <div class="row mt-5">
+      <div class="col-sm-4 text-center align-self-center">
+        <div>
+          <button class="btn" style="background: transparent"> 
+            <img style=" height: 150px;
+            width: 150px; background-color: cornsilk"
+            data-toggle="modal"
+            data-target="#myModal"
+          
+            src={{profile.image}} class="rounded-circle img">
+          </button>
+        </div> 
+        
+      </div>
+    <!-- add photo modal -->
+  
+      <div class="col-sm-4 align-self-center">
+        <div class="row">
+          <div class="col-8">
+              <h4  style="font-weight: normal; opacity: 0.7; display: inline-block;">{{profile.name}} </h4>
+              <h5 style="font-size: medium">{{profile.rollNo}}</h5>
+          </div>      
+        </div>
+      </div>
+  </div>
+
+  <div class="mt-5">
+      <div class="row mt-2">
+        <div class="col-4 text-center">
+                Karma Point
+        </div>
+        <div class="col-8">
+            : {{karmaPoints}}
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col-4 text-center">
+                Reviews
+        </div>
+        <div class="col-8">
+            : {{reviews}}
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col-4 text-center">
+                Content Uploads
+        </div>
+        <div class="col-8">
+            : {{uploads}}
+        </div>
+      </div>
+  </div>
+
+
+    <div *ngIf="isMyUploadsDefined()">
+      My Uploads
+      <div *ngFor =" let content of profile.myUploads">
+        <div class="bd-callout-warning ">
+          <div class="row justify-content-between mt-2">
+              <div class="col-4">
+                  <p class="card-text">{{content.documentType}}</p>
+                  <div class="row">
+                    <div class="col text-left">
+                      <i class="fa fa-arrow-up pointer"
+                      
+                       [style.color]="IUpvotedContent(content.upVotedBy) ? '#FF6347' : '#212529'">{{content.upVotedBy.length}}</i> 
+                      <span class="ml-3">
+                             <i class="fa fa-arrow-down pointer"
+                           
+                             [style.color]="IDownVotedContent(content.downVotedBy) ? '#FF6347' : '#212529'">{{content.downVotedBy.length}}</i> 
+                      </span>
+                 </div>
+                  </div>
+
+              </div>
+              <div class="col-4">
+                  <button (click)="DownloadClicked(content.documentAddress)"
+                   class="btn btn-light"><i class="fa fa-download">
+                      Download
+                  </i></button>
+              </div>
+              <div class="col-4 text-right">
+                <i [matMenuTriggerFor]="menu"  class="fa  fa-ellipsis-v pointer" ></i>
+          
+                <mat-menu #menu="matMenu">
+                  <button (click)="DeleteContent(content)" mat-menu-item>
+                    
+                    <span>Delete</span>
+                  </button>
+                  
+                </mat-menu>
+                
+              </div>
+            
+          </div>
+          
+      </div>
+     </div>
+    </div>
+
+    <div *ngIf="isMyReviewsDefined()">
+        My Reviews
+        <div *ngFor="let review of profile.myReviews">
+            <div class="bd-callout-warning ">
+                    <div >
+                        <p class="card-text">{{review.review}}</p>
+                        <div class="row">
+                          <div class="col text-left">
+                            <i class="fa fa-arrow-up pointer"
+                            
+                             [style.color]="IUpvoted(review.upVotedBy) ? '#FF6347' : '#212529'">{{review.upVotedBy.length}}</i> 
+                            <span class="ml-3">
+                                   <i class="fa fa-arrow-down pointer"
+                                   
+                                   [style.color]="IDownVoted(review.downVotedBy) ? '#FF6347' : '#212529'">{{review.downVotedBy.length}}</i> 
+                            </span>
+                          </div>
+                        </div>
+                        
+                    </div>
+                    <div class="row justify-content-between mt-2">
+                        <div class="col text-left">
+                          for course: {{review.courseId}} <span class="ml-5">  at: {{getDate(review.at)}} </span>
+                            
+                        </div>
+                        <div class="col text-right pointer">
+                                
+                                              
+                                 <i  [matMenuTriggerFor]="menu"  class="fa  fa-ellipsis-v pointer"></i>
+          
+                                <mat-menu  #menu="matMenu">
+                                  <button (click)="DeleteReview(review)"   mat-menu-item>
+                                    
+                                    <span>Delete</span>
+                                  </button>
+                                  
+                                </mat-menu>
+                             
+                        </div>
+                        
+                       
+                        
+                    </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  

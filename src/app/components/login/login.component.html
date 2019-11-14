@@ -1,0 +1,128 @@
+
+<div style="margin-top: 40px; margin-bottom: 100px "  class="text-center">
+    <!-- Show this on large screens , otherwise create a basic one to show on normal ones -->
+    
+    <div class="container" id="container">
+        <div class="form-container sign-up-container">
+            <form action="#" class="px-md-5">
+                <h1>Create Account</h1>
+                <!-- <div class="social-container">
+                    <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                    <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+                <span>or use your email for registration</span> -->
+                <input type="text" [(ngModel)]="name" name="name" placeholder="Name" />
+                <input type="email"  [(ngModel)]="email" name="email" placeholder="Smail " />
+                <input type="text" [(ngModel)]="phone" name="phone" placeholder="Phone number" />
+                <input type="password"  [(ngModel)]="password" name="password" placeholder="Password" />
+                <input type="password"  [(ngModel)]="cpassword" name="cpassword" placeholder="Confirm Password" />
+                <button  (click)="SignUpClicked()" >Sign Up</button>
+            </form>
+        </div>
+        <div class="form-container sign-in-container">
+            <form action="#" class="px-md-5">
+                <h1>Sign in</h1>
+                <!-- <div class="social-container">
+                    <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                    <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+                <span>or use your account</span> -->
+                <input type="email"  [(ngModel)]="email" name="email" placeholder="Email" />
+                <input type="password"  [(ngModel)]="password" name="password" placeholder="Password" />
+                <a style="cursor: pointer" (click)="sendPasswordResetEmaail(passwordResetModal)">Forgot your password?</a>
+                <button  (click)="Login(myModal)">Log In</button>
+            </form>
+        </div>
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel px-md-5 overlay-left">
+                    <h1>Welcome Back!</h1>
+                    <p>To keep connected with us please login with your personal info</p>
+                    <button class="ghost" id="signIn">Sign In</button>
+                </div>
+                <div class="overlay-panel px-md-5 overlay-right">
+                    <h1>Hello, Friend!</h1>
+                    <p>Enter your personal details and start journey with us</p>
+                    <button class="ghost" id="signUp">Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="main.js"></script>
+    
+    
+    </div>
+    
+    
+    <ng-template #passwordResetModal let-modal>
+            
+                      <div class="modal-header">
+                       <button class="close" data-dismiss="modal" (click)="modal.dismiss('Cross click')">&times;</button>
+                      </div>
+                      <div class="modal-body">
+                                  <div class="text-center">
+                                      <h5>Password Reset Response!</h5>
+                                  </div>
+                              <div class="text-center">
+                                  <p> {{resetMessage}}</p>
+                              </div>
+                      </div>
+                     
+                    
+    </ng-template>
+    
+    
+            
+    <ng-template #myModal let-modal>
+            
+        <div class="modal-header">
+         <button class="close" data-dismiss="modal" (click)="modal.dismiss('Cross click')">&times;</button>
+        </div>
+        <div class="modal-body">
+                    <div class="text-center">
+                        <h5>Login Success</h5>
+                    </div>
+                <div class="success-checkmark">
+                        <div class="check-icon">
+                          <span class="icon-line line-tip"></span>
+                          <span class="icon-line line-long"></span>
+                          <div class="icon-circle"></div>
+                          <div class="icon-fix"></div>
+                        </div>
+                      </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" (click)="modal.close()" data-dismiss="modal"> Close</button>
+        </div>
+      
+    </ng-template>
+    <ng-template #SucessFullSignUp let-modal>
+            
+            <div class="modal-header">
+             <button class="close" data-dismiss="modal" (click)="modal.dismiss('Cross click')">&times;</button>
+            </div>
+            <div class="modal-body">
+                        <div class="text-center">
+                            <h5>SignUp SuccessFul</h5>
+                        </div>
+                    <div class="success-checkmark">
+                            <div class="check-icon">
+                              <span class="icon-line line-tip"></span>
+                              <span class="icon-line line-long"></span>
+                              <div class="icon-circle"></div>
+                              <div class="icon-fix"></div>
+                            </div>
+                    </div>
+                    <div class="text-center">
+                        <img class="rounded-circle" src="image"
+                         alt="{{email}}" style="height: 100px;width: 100px">
+                        <h5>{{name}}</h5>
+                    </div>
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-secondary" (click)="modal.close()" data-dismiss="modal"> Close</button>
+            </div>
+          
+        </ng-template>
